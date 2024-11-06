@@ -30,10 +30,7 @@ export const patchContact = async (contactId, payload, options = {}) => {
     return null;
   }
 
-  return {
-    student: rawResult.value,
-    isNew: Boolean(rawResult?.lastErrorObject?.updatedExisting),
-  };
+  return rawResult.value;
 };
 
 export const deleteContact = async (contactId) => {
