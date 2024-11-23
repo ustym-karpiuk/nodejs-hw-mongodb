@@ -9,11 +9,17 @@ import { THIRTY_DAYS } from '../constants/index.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
+  const userData = {
+    _id: user._id,
+    email: user.email,
+    name: user.name,
+    createdAt: user.createdAt,
+  };
 
   res.status(201).json({
     status: 201,
     message: 'Successfully registered a user!',
-    data: user,
+    data: userData,
   });
 };
 
