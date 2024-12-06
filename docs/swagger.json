@@ -192,8 +192,7 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "contactType",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -226,15 +225,11 @@
                       "personal"
                     ]
                   },
-                  "userId": {
-                    "description": "User's id",
-                    "type": "string",
-                    "example": "673f8afd7f03a56110c1bea2"
-                  },
                   "photo": {
                     "description": "Contact's photo",
                     "type": "string",
-                    "example": "binary"
+                    "format": "binary",
+                    "example": "https://example.com/photo.jpg"
                   }
                 }
               }
@@ -304,7 +299,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -341,6 +336,7 @@
                   "photo": {
                     "description": "Contact's photo",
                     "type": "string",
+                    "format": "binary",
                     "example": "https://example.com/photo.jpg"
                   }
                 }
@@ -365,7 +361,32 @@
                       "example": "Successfully patched contact!"
                     },
                     "data": {
-                      "type": "object"
+                      "type": "object",
+                      "$ref": "#/components/schemas/contact"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id 671773d5fb1ae9660ff54c39 not found!"
                     }
                   }
                 }
@@ -399,15 +420,26 @@
         ],
         "responses": {
           "204": {
-            "description": "Delete contact by id",
+            "description": "Delete contact by id"
+          },
+          "404": {
+            "description": "Contact not found",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 204
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id 671773d5fb1ae9660ff54c39 not found!"
                     }
                   }
                 }
@@ -471,6 +503,30 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Contact not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id 671773d5fb1ae9660ff54c39 not found!"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
