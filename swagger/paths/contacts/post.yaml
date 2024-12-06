@@ -15,7 +15,6 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-          - userId
         properties:
           name:
             description: "Contact's name"
@@ -41,14 +40,11 @@ requestBody:
               - work
               - home
               - personal
-          userId:
-            description: "User's id"
-            type: string
-            example: 673f8afd7f03a56110c1bea2
           photo:
             description: "Contact's photo"
             type: string
-            example: binary
+            format: binary
+            example: https://example.com/photo.jpg
 responses:
   '201':
     description: Creates a contact

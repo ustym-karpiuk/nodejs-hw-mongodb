@@ -16,11 +16,19 @@ parameters:
 responses:
   '204':
     description: 'Delete contact by id'
+  '404':
+    description: 'Contact not found'
     content:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
           properties:
             status:
               type: integer
-              example: 204
+              example: 404
+            message:
+              type: string
+              example: 'Contact with id 671773d5fb1ae9660ff54c39 not found!'

@@ -16,7 +16,7 @@ parameters:
 requestBody:
   required: true
   content:
-    application/json:
+    multipart/form-data:
       schema:
         type: object
         properties:
@@ -44,6 +44,7 @@ requestBody:
           photo:
             description: "Contact's photo"
             type: string
+            format: binary
             example: 'https://example.com/photo.jpg'
 responses:
   200:
@@ -61,3 +62,20 @@ responses:
               example: Successfully patched contact!
             data:
               type: object
+              $ref: ../../../components/schemas/contact.yaml
+  '404':
+    description: 'Contact not found'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: 'Contact with id 671773d5fb1ae9660ff54c39 not found!'
